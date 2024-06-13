@@ -1,0 +1,58 @@
+{
+  "annotations": {
+    "changelogDate": "20240612092105"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "origin",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "destination",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "departureTime",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "seatsAvailable",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required", "min"],
+      "fieldValidateRulesMin": "1"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "price",
+      "fieldType": "Double"
+    }
+  ],
+  "name": "Carpool",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "passenger",
+      "otherEntityRelationshipName": "carpools",
+      "relationshipName": "passengers",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityName": "utilisateur",
+      "otherEntityRelationshipName": "carpools",
+      "relationshipName": "driver",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

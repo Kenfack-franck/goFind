@@ -1,0 +1,68 @@
+{
+  "annotations": {
+    "changelogDate": "20240612092102"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "email",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "password",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "phoneNumber",
+      "fieldType": "String"
+    }
+  ],
+  "name": "Utilisateur",
+  "relationships": [
+    {
+      "otherEntityName": "item",
+      "otherEntityRelationshipName": "owner",
+      "relationshipName": "items",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "alert",
+      "otherEntityRelationshipName": "utilisateur",
+      "relationshipName": "alerts",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "carpool",
+      "otherEntityRelationshipName": "driver",
+      "relationshipName": "carpools",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "passenger",
+      "otherEntityRelationshipName": "utilisateur",
+      "relationshipName": "passengers",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "property",
+      "otherEntityRelationshipName": "owner",
+      "relationshipName": "properties",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

@@ -1,0 +1,51 @@
+{
+  "annotations": {
+    "changelogDate": "20240612092103"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "category",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "creationDate",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "name": "Item",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "alert",
+      "otherEntityRelationshipName": "item",
+      "relationshipName": "alerts",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "utilisateur",
+      "otherEntityRelationshipName": "items",
+      "relationshipName": "owner",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

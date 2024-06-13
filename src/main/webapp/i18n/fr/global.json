@@ -7,7 +7,14 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entités",
-        "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
+        "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
+        "utilisateur": "Utilisateur",
+        "item": "Item",
+        "alert": "Alert",
+        "carpool": "Carpool",
+        "passenger": "Passenger",
+        "property": "Property",
+        "rental": "Rental"
       },
       "account": {
         "main": "Compte",

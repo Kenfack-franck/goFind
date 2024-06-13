@@ -50,6 +50,22 @@ public class CacheConfiguration {
             createCache(cm, com.mycompany.myapp.domain.User.class.getName());
             createCache(cm, com.mycompany.myapp.domain.Authority.class.getName());
             createCache(cm, com.mycompany.myapp.domain.User.class.getName() + ".authorities");
+            createCache(cm, com.mycompany.myapp.domain.Utilisateur.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Utilisateur.class.getName() + ".items");
+            createCache(cm, com.mycompany.myapp.domain.Utilisateur.class.getName() + ".alerts");
+            createCache(cm, com.mycompany.myapp.domain.Utilisateur.class.getName() + ".carpools");
+            createCache(cm, com.mycompany.myapp.domain.Utilisateur.class.getName() + ".passengers");
+            createCache(cm, com.mycompany.myapp.domain.Utilisateur.class.getName() + ".properties");
+            createCache(cm, com.mycompany.myapp.domain.Item.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Item.class.getName() + ".alerts");
+            createCache(cm, com.mycompany.myapp.domain.Alert.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Carpool.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Carpool.class.getName() + ".passengers");
+            createCache(cm, com.mycompany.myapp.domain.Passenger.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Passenger.class.getName() + ".carpools");
+            createCache(cm, com.mycompany.myapp.domain.Property.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Property.class.getName() + ".rentals");
+            createCache(cm, com.mycompany.myapp.domain.Rental.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

@@ -1,0 +1,31 @@
+{
+  "gofindApp": {
+    "carpool": {
+      "home": {
+        "title": "Carpools",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Carpool",
+        "createOrEditLabel": "Créer ou éditer un Carpool",
+        "notFound": "Aucun Carpool trouvé"
+      },
+      "created": "Un nouveau Carpool a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Carpool avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Carpool avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Carpool {{ id }} ?"
+      },
+      "detail": {
+        "title": "Carpool"
+      },
+      "id": "ID",
+      "origin": "Origin",
+      "destination": "Destination",
+      "departureTime": "Departure Time",
+      "seatsAvailable": "Seats Available",
+      "description": "Description",
+      "price": "Price",
+      "passengers": "Passengers",
+      "driver": "Driver"
+    }
+  }
+}

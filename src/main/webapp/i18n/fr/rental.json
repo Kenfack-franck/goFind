@@ -1,0 +1,29 @@
+{
+  "gofindApp": {
+    "rental": {
+      "home": {
+        "title": "Rentals",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Rental",
+        "createOrEditLabel": "Créer ou éditer un Rental",
+        "notFound": "Aucun Rental trouvé"
+      },
+      "created": "Un nouveau Rental a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Rental avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Rental avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Rental {{ id }} ?"
+      },
+      "detail": {
+        "title": "Rental"
+      },
+      "id": "ID",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "status": "Status",
+      "price": "Price",
+      "renter": "Renter",
+      "property": "Property"
+    }
+  }
+}

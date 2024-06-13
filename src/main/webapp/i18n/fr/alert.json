@@ -1,0 +1,28 @@
+{
+  "gofindApp": {
+    "alert": {
+      "home": {
+        "title": "Alerts",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Alert",
+        "createOrEditLabel": "Créer ou éditer un Alert",
+        "notFound": "Aucun Alert trouvé"
+      },
+      "created": "Un nouveau Alert a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Alert avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Alert avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Alert {{ id }} ?"
+      },
+      "detail": {
+        "title": "Alert"
+      },
+      "id": "ID",
+      "message": "Message",
+      "date": "Date",
+      "read": "Read",
+      "item": "Item",
+      "utilisateur": "Utilisateur"
+    }
+  }
+}

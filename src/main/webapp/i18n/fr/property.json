@@ -1,0 +1,31 @@
+{
+  "gofindApp": {
+    "property": {
+      "home": {
+        "title": "Properties",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Property",
+        "createOrEditLabel": "Créer ou éditer un Property",
+        "notFound": "Aucun Property trouvé"
+      },
+      "created": "Un nouveau Property a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Property avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Property avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Property {{ id }} ?"
+      },
+      "detail": {
+        "title": "Property"
+      },
+      "id": "ID",
+      "location": "Location",
+      "description": "Description",
+      "price": "Price",
+      "availabilityStatus": "Availability Status",
+      "propertySize": "Property Size",
+      "type": "Type",
+      "rentals": "Rentals",
+      "owner": "Owner"
+    }
+  }
+}

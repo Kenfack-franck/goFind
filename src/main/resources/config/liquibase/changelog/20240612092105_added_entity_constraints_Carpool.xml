@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <!--
+        Added the constraints for entity Carpool.
+    -->
+    <changeSet id="20240612092105-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="carpool_id"
+                                 baseTableName="rel_carpool__passengers"
+                                 constraintName="fk_rel_carpool__passengers__carpool_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="carpool"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="passengers_id"
+                                 baseTableName="rel_carpool__passengers"
+                                 constraintName="fk_rel_carpool__passengers__passengers_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="passenger"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="driver_id"
+                                 baseTableName="carpool"
+                                 constraintName="fk_carpool__driver_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="utilisateur"
+                                 />
+    </changeSet>
+</databaseChangeLog>

@@ -31,7 +31,8 @@ export const RegisterPage = () => {
 
   useEffect(() => {
     if (successMessage) {
-      toast.success(translate(successMessage));
+      //toast.success(translate(successMessage));
+      toast.success('Votre compte a bien été créé!');
     }
   }, [successMessage]);
 

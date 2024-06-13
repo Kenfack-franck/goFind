@@ -1,0 +1,43 @@
+{
+  "annotations": {
+    "changelogDate": "20240612092104"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "message",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "date",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "read",
+      "fieldType": "Boolean"
+    }
+  ],
+  "name": "Alert",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "item",
+      "otherEntityRelationshipName": "alerts",
+      "relationshipName": "item",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "utilisateur",
+      "otherEntityRelationshipName": "alerts",
+      "relationshipName": "utilisateur",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

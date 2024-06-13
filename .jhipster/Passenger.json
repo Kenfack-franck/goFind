@@ -1,0 +1,37 @@
+{
+  "annotations": {
+    "changelogDate": "20240612092106"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "joinDate",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "name": "Passenger",
+  "relationships": [
+    {
+      "otherEntityName": "utilisateur",
+      "otherEntityRelationshipName": "passengers",
+      "relationshipName": "utilisateur",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "carpool",
+      "otherEntityRelationshipName": "passengers",
+      "relationshipName": "carpools",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

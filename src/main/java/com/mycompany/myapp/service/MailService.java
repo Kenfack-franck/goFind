@@ -1,10 +1,16 @@
 package com.mycompany.myapp.service;
 
+import ch.qos.logback.classic.pattern.Util;
+import com.mycompany.myapp.domain.Item;
 import com.mycompany.myapp.domain.User;
+import com.mycompany.myapp.domain.Utilisateur;
+import com.mycompany.myapp.service.dto.ItemDTO;
+import com.mycompany.myapp.service.dto.UtilisateurDTO;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
@@ -39,16 +45,20 @@ public class MailService {
 
     private final SpringTemplateEngine templateEngine;
 
+    private final UtilisateurService utilisateurService;
+
     public MailService(
         JHipsterProperties jHipsterProperties,
         JavaMailSender javaMailSender,
         MessageSource messageSource,
-        SpringTemplateEngine templateEngine
+        SpringTemplateEngine templateEngine,
+        UtilisateurService utilisateurService
     ) {
         this.jHipsterProperties = jHipsterProperties;
         this.javaMailSender = javaMailSender;
         this.messageSource = messageSource;
         this.templateEngine = templateEngine;
+        this.utilisateurService = utilisateurService;
     }
 
     @Async
@@ -104,6 +114,18 @@ public class MailService {
     public void sendActivationEmail(User user) {
         log.debug("Sending activation email to '{}'", user.getEmail());
         this.sendEmailFromTemplateSync(user, "mail/activationEmail", "email.activation.title");
+    }
+
+    @Async
+    public void sendEmailReport(ItemDTO item) {
+        String subject = "Signalement objet retrouvé";
+        UtilisateurDTO owner = item.getOwner();
+
+        Optional<UtilisateurDTO> userOpt = utilisateurService.findOne(owner.getId());
+        UtilisateurDTO user = userOpt.orElseThrow();
+        log.debug("!!!!!!!!!!!!!!!!!!!Sendingemail to '{}'", user);
+        String content = "Nous vous informons que votre appareil de nom: " + item.getName() + "a été retrouvé!";
+        this.sendEmailSync(user.getEmail(), subject, content, false, true);
     }
 
     @Async

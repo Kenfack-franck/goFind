@@ -1,0 +1,56 @@
+{
+  "annotations": {
+    "changelogDate": "20240612092107"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "location",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "price",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required", "min"],
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "availabilityStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "propertySize",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "type",
+      "fieldType": "String"
+    }
+  ],
+  "name": "Property",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "rental",
+      "otherEntityRelationshipName": "property",
+      "relationshipName": "rentals",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "utilisateur",
+      "otherEntityRelationshipName": "properties",
+      "relationshipName": "owner",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}
