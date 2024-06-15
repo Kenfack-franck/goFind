@@ -106,92 +106,91 @@ export const Alert = () => {
           </Link>
         </div>
       </h2>
-      <div className="table-responsive">
-        {alertList && alertList.length > 0 ? (
-          <Table responsive>
-            <thead>
-              <tr>
-                <th className="hand" onClick={sort('id')}>
-                  <Translate contentKey="gofindApp.alert.id">ID</Translate> <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
-                </th>
-                <th className="hand" onClick={sort('message')}>
-                  <Translate contentKey="gofindApp.alert.message">Message</Translate>{' '}
-                  <FontAwesomeIcon icon={getSortIconByFieldName('message')} />
-                </th>
-                <th className="hand" onClick={sort('date')}>
-                  <Translate contentKey="gofindApp.alert.date">Date</Translate> <FontAwesomeIcon icon={getSortIconByFieldName('date')} />
-                </th>
-                <th className="hand" onClick={sort('read')}>
-                  <Translate contentKey="gofindApp.alert.read">Read</Translate> <FontAwesomeIcon icon={getSortIconByFieldName('read')} />
-                </th>
-                <th>
-                  <Translate contentKey="gofindApp.alert.item">Item</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th>
-                  <Translate contentKey="gofindApp.alert.utilisateur">Utilisateur</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th />
-              </tr>
-            </thead>
-            <tbody>
-              {alertList.map((alert, i) => (
-                <tr key={`entity-${i}`} data-cy="entityTable">
-                  <td>
+      <div className="d-flex flex-wrap justify-content-between">
+        {alertList && alertList.length > 0
+          ? alertList.map((alert, i) => (
+              <div
+                key={`entity-${i}`}
+                className="card m-2 p-3"
+                style={{ width: '300px', borderRadius: '10px', boxShadow: '0 2px 5px rgba(0,0,0,0.1)' }}
+              >
+                <div className="card-body">
+                  <h5 className="card-title">
                     <Button tag={Link} to={`/alert/${alert.id}`} color="link" size="sm">
                       {alert.id}
                     </Button>
-                  </td>
-                  <td>{alert.message}</td>
-                  <td>{alert.date ? <TextFormat type="date" value={alert.date} format={APP_DATE_FORMAT} /> : null}</td>
-                  <td>{alert.read ? 'true' : 'false'}</td>
-                  <td>{alert.item ? <Link to={`/item/${alert.item.id}`}>{alert.item.id}</Link> : ''}</td>
-                  <td>{alert.utilisateur ? <Link to={`/utilisateur/${alert.utilisateur.id}`}>{alert.utilisateur.id}</Link> : ''}</td>
-                  <td className="text-end">
-                    <div className="btn-group flex-btn-group-container">
-                      <Button tag={Link} to={`/alert/${alert.id}`} color="info" size="sm" data-cy="entityDetailsButton">
-                        <FontAwesomeIcon icon="eye" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.view">View</Translate>
-                        </span>
-                      </Button>
-                      <Button
-                        tag={Link}
-                        to={`/alert/${alert.id}/edit?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`}
-                        color="primary"
-                        size="sm"
-                        data-cy="entityEditButton"
-                      >
-                        <FontAwesomeIcon icon="pencil-alt" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.edit">Edit</Translate>
-                        </span>
-                      </Button>
-                      <Button
-                        onClick={() =>
-                          (window.location.href = `/alert/${alert.id}/delete?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`)
-                        }
-                        color="danger"
-                        size="sm"
-                        data-cy="entityDeleteButton"
-                      >
-                        <FontAwesomeIcon icon="trash" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.delete">Delete</Translate>
-                        </span>
-                      </Button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        ) : (
-          !loading && (
-            <div className="alert alert-warning">
-              <Translate contentKey="gofindApp.alert.home.notFound">No Alerts found</Translate>
-            </div>
-          )
-        )}
+                  </h5>
+                  <p className="card-text">
+                    <strong>
+                      <Translate contentKey="gofindApp.alert.message">Message:</Translate>
+                    </strong>{' '}
+                    {alert.message}
+                  </p>
+                  <p className="card-text">
+                    <strong>
+                      <Translate contentKey="gofindApp.alert.date">Date:</Translate>
+                    </strong>{' '}
+                    {alert.date ? <TextFormat type="date" value={alert.date} format={APP_DATE_FORMAT} /> : null}
+                  </p>
+                  <p className="card-text">
+                    <strong>
+                      <Translate contentKey="gofindApp.alert.read">Read:</Translate>
+                    </strong>{' '}
+                    {alert.read ? 'true' : 'false'}
+                  </p>
+                  <p className="card-text">
+                    <strong>
+                      <Translate contentKey="gofindApp.alert.item">Item:</Translate>
+                    </strong>{' '}
+                    {alert.item ? <Link to={`/item/${alert.item.id}`}>{alert.item.id}</Link> : ''}
+                  </p>
+                  <p className="card-text">
+                    <strong>
+                      <Translate contentKey="gofindApp.alert.utilisateur">Utilisateur:</Translate>
+                    </strong>{' '}
+                    {alert.utilisateur ? <Link to={`/utilisateur/${alert.utilisateur.id}`}>{alert.utilisateur.id}</Link> : ''}
+                  </p>
+                  <div className="btn-group flex-btn-group-container">
+                    <Button tag={Link} to={`/alert/${alert.id}`} color="info" size="sm" data-cy="entityDetailsButton">
+                      <FontAwesomeIcon icon="eye" />{' '}
+                      <span className="d-none d-md-inline">
+                        <Translate contentKey="entity.action.view">View</Translate>
+                      </span>
+                    </Button>
+                    <Button
+                      tag={Link}
+                      to={`/alert/${alert.id}/edit?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`}
+                      color="primary"
+                      size="sm"
+                      data-cy="entityEditButton"
+                    >
+                      <FontAwesomeIcon icon="pencil-alt" />{' '}
+                      <span className="d-none d-md-inline">
+                        <Translate contentKey="entity.action.edit">Edit</Translate>
+                      </span>
+                    </Button>
+                    <Button
+                      onClick={() =>
+                        (window.location.href = `/alert/${alert.id}/delete?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`)
+                      }
+                      color="danger"
+                      size="sm"
+                      data-cy="entityDeleteButton"
+                    >
+                      <FontAwesomeIcon icon="trash" />{' '}
+                      <span className="d-none d-md-inline">
+                        <Translate contentKey="entity.action.delete">Delete</Translate>
+                      </span>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            ))
+          : !loading && (
+              <div className="alert alert-warning">
+                <Translate contentKey="gofindApp.alert.home.notFound">No Alerts found</Translate>
+              </div>
+            )}
       </div>
       {totalItems ? (
         <div className={alertList && alertList.length > 0 ? '' : 'd-none'}>
