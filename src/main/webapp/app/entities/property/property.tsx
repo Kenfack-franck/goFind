@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Button, Table } from 'reactstrap';
-import { Translate, getPaginationState, JhiPagination, JhiItemCount } from 'react-jhipster';
+import { Button, Input, FormGroup, Label } from 'reactstrap';
+import { Translate, getPaginationState, JhiPagination, JhiItemCount, TextFormat } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSort, faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons';
 import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/shared/util/pagination.constants';
@@ -19,6 +19,8 @@ export const Property = () => {
   const [paginationState, setPaginationState] = useState(
     overridePaginationStateWithQueryParams(getPaginationState(pageLocation, ITEMS_PER_PAGE, 'id'), pageLocation.search),
   );
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filterType, setFilterType] = useState('');
 
   const propertyList = useAppSelector(state => state.property.entities);
   const loading = useAppSelector(state => state.property.loading);
@@ -79,7 +81,7 @@ export const Property = () => {
     sortEntities();
   };
 
-  const getSortIconByFieldName = (fieldName: string) => {
+  const getSortIconByFieldName = fieldName => {
     const sortFieldName = paginationState.sort;
     const order = paginationState.order;
     if (sortFieldName !== fieldName) {
@@ -88,6 +90,18 @@ export const Property = () => {
       return order === ASC ? faSortUp : faSortDown;
     }
   };
+
+  const handleSearch = event => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleFilterTypeChange = event => {
+    setFilterType(event.target.value);
+  };
+
+  const filteredProperties = propertyList.filter(property => {
+    return property.location.toLowerCase().includes(searchTerm.toLowerCase()) && (filterType ? property.type === filterType : true);
+  });
 
   return (
     <div>
@@ -105,104 +119,113 @@ export const Property = () => {
           </Link>
         </div>
       </h2>
-      <div className="table-responsive">
-        {propertyList && propertyList.length > 0 ? (
-          <Table responsive>
-            <thead>
-              <tr>
-                <th className="hand" onClick={sort('id')}>
-                  <Translate contentKey="gofindApp.property.id">ID</Translate> <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
-                </th>
-                <th className="hand" onClick={sort('location')}>
-                  <Translate contentKey="gofindApp.property.location">Location</Translate>{' '}
-                  <FontAwesomeIcon icon={getSortIconByFieldName('location')} />
-                </th>
-                <th className="hand" onClick={sort('description')}>
-                  <Translate contentKey="gofindApp.property.description">Description</Translate>{' '}
-                  <FontAwesomeIcon icon={getSortIconByFieldName('description')} />
-                </th>
-                <th className="hand" onClick={sort('price')}>
-                  <Translate contentKey="gofindApp.property.price">Price</Translate>{' '}
-                  <FontAwesomeIcon icon={getSortIconByFieldName('price')} />
-                </th>
-                <th className="hand" onClick={sort('availabilityStatus')}>
-                  <Translate contentKey="gofindApp.property.availabilityStatus">Availability Status</Translate>{' '}
-                  <FontAwesomeIcon icon={getSortIconByFieldName('availabilityStatus')} />
-                </th>
-                <th className="hand" onClick={sort('propertySize')}>
-                  <Translate contentKey="gofindApp.property.propertySize">Property Size</Translate>{' '}
-                  <FontAwesomeIcon icon={getSortIconByFieldName('propertySize')} />
-                </th>
-                <th className="hand" onClick={sort('type')}>
-                  <Translate contentKey="gofindApp.property.type">Type</Translate> <FontAwesomeIcon icon={getSortIconByFieldName('type')} />
-                </th>
-                <th>
-                  <Translate contentKey="gofindApp.property.owner">Owner</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th />
-              </tr>
-            </thead>
-            <tbody>
-              {propertyList.map((property, i) => (
-                <tr key={`entity-${i}`} data-cy="entityTable">
-                  <td>
-                    <Button tag={Link} to={`/property/${property.id}`} color="link" size="sm">
-                      {property.id}
+      <div className="mb-3 d-flex flex-wrap justify-content-between align-items-center">
+        <Input
+          type="text"
+          name="search"
+          value={searchTerm}
+          onChange={handleSearch}
+          placeholder="Search by location"
+          style={{ width: '30%', minWidth: '200px' }}
+          className="mb-2"
+        />
+        <FormGroup className="mb-2" style={{ width: '30%', minWidth: '200px' }}>
+          <Input type="select" name="filterType" value={filterType} onChange={handleFilterTypeChange}>
+            <option value="">All Types</option>
+            <option value="chambre simple">Chambre Simple</option>
+            <option value="chambre moderne">Chambre Moderne</option>
+            <option value="apartement">Apartement</option>
+            <option value="villa">Villa</option>
+          </Input>
+        </FormGroup>
+      </div>
+      <div className="d-flex flex-wrap justify-content-between">
+        {filteredProperties && filteredProperties.length > 0
+          ? filteredProperties.map((property, i) => (
+              <div
+                key={`entity-${i}`}
+                className="card m-2 p-3"
+                style={{ width: '300px', borderRadius: '10px', boxShadow: '0 2px 5px rgba(0,0,0,0.1)' }}
+              >
+                <div className="card-body">
+                  <p className="card-text">
+                    <strong>
+                      <Translate contentKey="gofindApp.property.location">Location:</Translate>
+                    </strong>{' '}
+                    {property.location}
+                  </p>
+                  {/* <p className="card-text">
+                    <strong>
+                      <Translate contentKey="gofindApp.property.description">Description:</Translate>
+                    </strong>{' '}
+                    {property.description}
+                  </p> */}
+                  <p className="card-text">
+                    <strong>
+                      <Translate contentKey="gofindApp.property.price">Price:</Translate>
+                    </strong>{' '}
+                    {property.price}
+                  </p>
+                  <p className="card-text">
+                    <strong>
+                      <Translate contentKey="gofindApp.property.availabilityStatus">Availability Status:</Translate>
+                    </strong>{' '}
+                    {property.availabilityStatus}
+                  </p>
+                  <p className="card-text">
+                    <strong>
+                      <Translate contentKey="gofindApp.property.propertySize">Property Size:</Translate>
+                    </strong>{' '}
+                    {property.propertySize}
+                  </p>
+                  <p className="card-text">
+                    <strong>
+                      <Translate contentKey="gofindApp.property.type">Type:</Translate>
+                    </strong>{' '}
+                    {property.type}
+                  </p>
+                  <div className="btn-group flex-btn-group-container">
+                    <Button tag={Link} to={`/property/${property.id}`} color="info" size="sm" data-cy="entityDetailsButton">
+                      <FontAwesomeIcon icon="eye" />{' '}
+                      <span className="d-none d-md-inline">
+                        <Translate contentKey="entity.action.view">View</Translate>
+                      </span>
                     </Button>
-                  </td>
-                  <td>{property.location}</td>
-                  <td>{property.description}</td>
-                  <td>{property.price}</td>
-                  <td>{property.availabilityStatus}</td>
-                  <td>{property.propertySize}</td>
-                  <td>{property.type}</td>
-                  <td>{property.owner ? <Link to={`/utilisateur/${property.owner.id}`}>{property.owner.id}</Link> : ''}</td>
-                  <td className="text-end">
-                    <div className="btn-group flex-btn-group-container">
-                      <Button tag={Link} to={`/property/${property.id}`} color="info" size="sm" data-cy="entityDetailsButton">
-                        <FontAwesomeIcon icon="eye" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.view">View</Translate>
-                        </span>
-                      </Button>
-                      <Button
-                        tag={Link}
-                        to={`/property/${property.id}/edit?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`}
-                        color="primary"
-                        size="sm"
-                        data-cy="entityEditButton"
-                      >
-                        <FontAwesomeIcon icon="pencil-alt" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.edit">Edit</Translate>
-                        </span>
-                      </Button>
-                      <Button
-                        onClick={() =>
-                          (window.location.href = `/property/${property.id}/delete?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`)
-                        }
-                        color="danger"
-                        size="sm"
-                        data-cy="entityDeleteButton"
-                      >
-                        <FontAwesomeIcon icon="trash" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.delete">Delete</Translate>
-                        </span>
-                      </Button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        ) : (
-          !loading && (
-            <div className="alert alert-warning">
-              <Translate contentKey="gofindApp.property.home.notFound">No Properties found</Translate>
-            </div>
-          )
-        )}
+                    {/* <Button
+                      tag={Link}
+                      to={`/property/${property.id}/edit?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`}
+                      color="primary"
+                      size="sm"
+                      data-cy="entityEditButton"
+                    >
+                      <FontAwesomeIcon icon="pencil-alt" />{' '}
+                      <span className="d-none d-md-inline">
+                        <Translate contentKey="entity.action.edit">Edit</Translate>
+                      </span>
+                    </Button> */}
+                    <Button
+                      onClick={() =>
+                        (window.location.href = `/property/${property.id}/delete?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`)
+                      }
+                      color="primary"
+                      size="sm"
+                      data-cy="entityDeleteButton"
+                    >
+                      {/* <FontAwesomeIcon icon="trash" />{' '} */}
+                      <span className="d-none d-md-inline">
+                        {/* <Translate contentKey="entity.action.delete">Delete</Translate> */}
+                        souscription
+                      </span>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            ))
+          : !loading && (
+              <div className="alert alert-warning">
+                <Translate contentKey="gofindApp.property.home.notFound">No Properties found</Translate>
+              </div>
+            )}
       </div>
       {totalItems ? (
         <div className={propertyList && propertyList.length > 0 ? '' : 'd-none'}>

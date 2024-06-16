@@ -171,23 +171,23 @@ export const Item = () => {
                 style={{ width: '300px', borderRadius: '10px', boxShadow: '0 2px 5px rgba(0,0,0,0.1)' }}
               >
                 <div className="card-body">
-                  <h5 className="card-title">
+                  {/* <h5 className="card-title">
                     <Button tag={Link} to={`/item/${item.id}`} color="link" size="sm">
                       {item.id}
                     </Button>
-                  </h5>
+                  </h5> */}
                   <p className="card-text">
                     <strong>
                       <Translate contentKey="gofindApp.item.name">Name:</Translate>
                     </strong>{' '}
                     {item.name}
                   </p>
-                  <p className="card-text">
+                  {/* <p className="card-text">
                     <strong>
                       <Translate contentKey="gofindApp.item.description">Description:</Translate>
                     </strong>{' '}
                     {item.description}
-                  </p>
+                  </p> */}
                   <p className="card-text">
                     <strong>
                       <Translate contentKey="gofindApp.item.category">Category:</Translate>
@@ -200,7 +200,7 @@ export const Item = () => {
                     </strong>{' '}
                     {item.status}
                   </p>
-                  <p className="card-text">
+                  {/* <p className="card-text">
                     <strong>
                       <Translate contentKey="gofindApp.item.creationDate">Creation Date:</Translate>
                     </strong>{' '}
@@ -211,7 +211,7 @@ export const Item = () => {
                       <Translate contentKey="gofindApp.item.owner">Owner:</Translate>
                     </strong>{' '}
                     {item.owner ? <Link to={`/utilisateur/${item.owner.id}`}>{item.owner.id}</Link> : ''}
-                  </p>
+                  </p> */}
                   <div className="btn-group flex-btn-group-container">
                     <Button tag={Link} to={`/item/${item.id}`} color="info" size="sm" data-cy="entityDetailsButton">
                       <FontAwesomeIcon icon="eye" />{' '}
@@ -228,21 +228,19 @@ export const Item = () => {
                     >
                       <FontAwesomeIcon icon="pencil-alt" />{' '}
                       <span className="d-none d-md-inline">
-                        <Translate contentKey="entity.action.edit">Edit</Translate>
+                        <Translate contentKey="entity.action.edit">Edit1</Translate>
                       </span>
                     </Button>
                     <Button
                       onClick={() =>
                         (window.location.href = `/item/${item.id}/delete?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`)
                       }
-                      color="danger"
+                      color="info"
                       size="sm"
                       data-cy="entityDeleteButton"
                     >
-                      <FontAwesomeIcon icon="trash" />{' '}
-                      <span className="d-none d-md-inline">
-                        <Translate contentKey="entity.action.delete">Delete</Translate>
-                      </span>
+                      {/* <FontAwesomeIcon icon="trash" />{' '} */}
+                      <span className="d-none d-md-inline">ACHETER</span>
                     </Button>
                   </div>
                 </div>

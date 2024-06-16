@@ -26,11 +26,11 @@ export const ItemDetail = () => {
           <Translate contentKey="gofindApp.item.detail.title">Item</Translate>
         </h2>
         <dl className="jh-entity-details">
-          <dt>
+          {/* <dt>
             <span id="id">
               <Translate contentKey="global.field.id">ID</Translate>
             </span>
-          </dt>
+          </dt> */}
           <dd>{itemEntity.id}</dd>
           <dt>
             <span id="name">

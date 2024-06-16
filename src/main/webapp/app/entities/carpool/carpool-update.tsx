@@ -105,7 +105,7 @@ export const CarpoolUpdate = () => {
             <p>Loading...</p>
           ) : (
             <ValidatedForm defaultValues={defaultValues()} onSubmit={saveEntity}>
-              {!isNew ? (
+              {/* {!isNew ? (
                 <ValidatedField
                   name="id"
                   required
@@ -114,7 +114,7 @@ export const CarpoolUpdate = () => {
                   label={translate('global.field.id')}
                   validate={{ required: true }}
                 />
-              ) : null}
+              ) : null} */}
               <ValidatedField
                 label={translate('gofindApp.carpool.origin')}
                 id="carpool-origin"
@@ -124,6 +124,7 @@ export const CarpoolUpdate = () => {
                 validate={{
                   required: { value: true, message: translate('entity.validation.required') },
                 }}
+                readOnly={!isNew}
               />
               <ValidatedField
                 label={translate('gofindApp.carpool.destination')}
@@ -134,6 +135,7 @@ export const CarpoolUpdate = () => {
                 validate={{
                   required: { value: true, message: translate('entity.validation.required') },
                 }}
+                readOnly={!isNew}
               />
               <ValidatedField
                 label={translate('gofindApp.carpool.departureTime')}
@@ -145,6 +147,7 @@ export const CarpoolUpdate = () => {
                 validate={{
                   required: { value: true, message: translate('entity.validation.required') },
                 }}
+                readOnly={!isNew}
               />
               <ValidatedField
                 label={translate('gofindApp.carpool.seatsAvailable')}
@@ -157,6 +160,7 @@ export const CarpoolUpdate = () => {
                   min: { value: 1, message: translate('entity.validation.min', { min: 1 }) },
                   validate: v => isNumber(v) || translate('entity.validation.number'),
                 }}
+                readOnly={!isNew}
               />
               <ValidatedField
                 label={translate('gofindApp.carpool.description')}
@@ -164,6 +168,7 @@ export const CarpoolUpdate = () => {
                 name="description"
                 data-cy="description"
                 type="text"
+                readOnly={!isNew}
               />
               <ValidatedField label={translate('gofindApp.carpool.price')} id="carpool-price" name="price" data-cy="price" type="text" />
               <ValidatedField
@@ -173,6 +178,7 @@ export const CarpoolUpdate = () => {
                 type="select"
                 multiple
                 name="passengers"
+                readOnly={!isNew}
               >
                 <option value="" key="0" />
                 {passengers

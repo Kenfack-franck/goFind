@@ -42,12 +42,14 @@ export const ItemDeleteDialog = () => {
   return (
     <Modal isOpen toggle={handleClose}>
       <ModalHeader toggle={handleClose} data-cy="itemDeleteDialogHeading">
-        <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
+        {/* <Translate contentKey="entity.delete.title">Confirm delete operation</Translate> */}
+        Confirmation achat
       </ModalHeader>
       <ModalBody id="gofindApp.item.delete.question">
-        <Translate contentKey="gofindApp.item.delete.question" interpolate={{ id: itemEntity.id }}>
+        {/* <Translate contentKey="gofindApp.item.delete.question" interpolate={{ id: itemEntity.id }}>
           Are you sure you want to delete this Item?
-        </Translate>
+        </Translate> */}
+        vous ete sur de vouloir acheter le produit {itemEntity.name}? si oui veuillez nous contacter au numero suivant 674727486.
       </ModalBody>
       <ModalFooter>
         <Button color="secondary" onClick={handleClose}>
@@ -55,10 +57,11 @@ export const ItemDeleteDialog = () => {
           &nbsp;
           <Translate contentKey="entity.action.cancel">Cancel</Translate>
         </Button>
-        <Button id="jhi-confirm-delete-item" data-cy="entityConfirmDeleteButton" color="danger" onClick={confirmDelete}>
+        <Button id="jhi-confirm-delete-item" data-cy="entityConfirmDeleteButton" color="info" onClick={confirmDelete}>
           <FontAwesomeIcon icon="trash" />
           &nbsp;
-          <Translate contentKey="entity.action.delete">Delete</Translate>
+          {/* <Translate contentKey="entity.action.delete">Delete</Translate> */}
+          valider
         </Button>
       </ModalFooter>
     </Modal>

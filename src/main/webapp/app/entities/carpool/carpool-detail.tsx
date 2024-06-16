@@ -26,11 +26,11 @@ export const CarpoolDetail = () => {
           <Translate contentKey="gofindApp.carpool.detail.title">Carpool</Translate>
         </h2>
         <dl className="jh-entity-details">
-          <dt>
+          {/* <dt>
             <span id="id">
               <Translate contentKey="global.field.id">ID</Translate>
             </span>
-          </dt>
+          </dt> */}
           <dd>{carpoolEntity.id}</dd>
           <dt>
             <span id="origin">

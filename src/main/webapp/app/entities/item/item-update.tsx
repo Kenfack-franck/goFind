@@ -93,16 +93,16 @@ export const ItemUpdate = () => {
             <p>Loading...</p>
           ) : (
             <ValidatedForm defaultValues={defaultValues()} onSubmit={saveEntity}>
-              {!isNew ? (
-                <ValidatedField
-                  name="id"
-                  required
-                  readOnly
-                  id="item-id"
-                  label={translate('global.field.id')}
-                  validate={{ required: true }}
-                />
-              ) : null}
+              {/* {!isNew ? (
+                      <ValidatedField
+                        name="id"
+                        required
+                        readOnly
+                        id="item-id"
+                        label={translate('global.field.id')}
+                        validate={{ required: true }}
+                      />
+                    ) : null} */}
               <ValidatedField
                 label={translate('gofindApp.item.name')}
                 id="item-name"
@@ -112,6 +112,7 @@ export const ItemUpdate = () => {
                 validate={{
                   required: { value: true, message: translate('entity.validation.required') },
                 }}
+                readOnly={!isNew}
               />
               <ValidatedField
                 label={translate('gofindApp.item.description')}
@@ -119,6 +120,7 @@ export const ItemUpdate = () => {
                 name="description"
                 data-cy="description"
                 type="text"
+                readOnly={!isNew}
               />
               <ValidatedField
                 label={translate('gofindApp.item.category')}
@@ -126,8 +128,13 @@ export const ItemUpdate = () => {
                 name="category"
                 data-cy="category"
                 type="text"
+                readOnly={!isNew}
               />
-              <ValidatedField label={translate('gofindApp.item.status')} id="item-status" name="status" data-cy="status" type="text" />
+              <ValidatedField label={translate('gofindApp.item.status')} id="item-status" name="status" data-cy="status" type="select">
+                <option value="a vendre">A vendre</option>
+                <option value="voler">Voler</option>
+                <option value="retrouver">Retrouver</option>
+              </ValidatedField>
               <ValidatedField
                 label={translate('gofindApp.item.creationDate')}
                 id="item-creationDate"
@@ -138,8 +145,16 @@ export const ItemUpdate = () => {
                 validate={{
                   required: { value: true, message: translate('entity.validation.required') },
                 }}
+                readOnly={!isNew}
               />
-              <ValidatedField id="item-owner" name="owner" data-cy="owner" label={translate('gofindApp.item.owner')} type="select">
+              <ValidatedField
+                id="item-owner"
+                name="owner"
+                data-cy="owner"
+                label={translate('gofindApp.item.owner')}
+                type="select"
+                readOnly={!isNew}
+              >
                 <option value="" key="0" />
                 {utilisateurs
                   ? utilisateurs.map(otherEntity => (

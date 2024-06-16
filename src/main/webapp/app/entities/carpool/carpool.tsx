@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Button, Table, Input } from 'reactstrap';
+import { Button, Table, Input, FormGroup, Label } from 'reactstrap';
 import { Translate, TextFormat, getPaginationState, JhiPagination, JhiItemCount } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSort, faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons';
@@ -10,9 +10,6 @@ import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-u
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { getEntities } from './carpool.reducer';
-
-const categories = ['origin', 'destination', 'departureTime', 'seatsAvailable', 'description', 'price'];
-const statuses = ['active', 'completed', 'cancelled'];
 
 export const Carpool = () => {
   const dispatch = useAppDispatch();
@@ -24,8 +21,7 @@ export const Carpool = () => {
     overridePaginationStateWithQueryParams(getPaginationState(pageLocation, ITEMS_PER_PAGE, 'id'), pageLocation.search),
   );
   const [searchTerm, setSearchTerm] = useState('');
-  const [categoryFilter, setCategoryFilter] = useState('');
-  const [statusFilter, setStatusFilter] = useState('');
+  const [searchBy, setSearchBy] = useState('origin');
 
   const carpoolList = useAppSelector(state => state.carpool.entities);
   const loading = useAppSelector(state => state.carpool.loading);
@@ -100,28 +96,17 @@ export const Carpool = () => {
     setSearchTerm(event.target.value);
   };
 
-  const handleCategoryFilter = event => {
-    setCategoryFilter(event.target.value);
+  const handleSearchByChange = event => {
+    setSearchBy(event.target.value);
   };
 
-  const handleStatusFilter = event => {
-    setStatusFilter(event.target.value);
-  };
-
-  const filteredCarpools = carpoolList
-    .filter(carpool => carpool.origin.toLowerCase().includes(searchTerm.toLowerCase()))
-    .filter(carpool => (categoryFilter ? carpool.category === categoryFilter : true))
-    .filter(carpool => (statusFilter ? carpool.status === statusFilter : true));
+  const filteredCarpools = carpoolList.filter(carpool => carpool[searchBy].toLowerCase().includes(searchTerm.toLowerCase()));
 
   return (
     <div>
       <h2 id="carpool-heading" data-cy="CarpoolHeading">
         <Translate contentKey="gofindApp.carpool.home.title">Carpools</Translate>
         <div className="d-flex justify-content-end">
-          <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
-            <FontAwesomeIcon icon="sync" spin={loading} />{' '}
-            <Translate contentKey="gofindApp.carpool.home.refreshListLabel">Refresh List</Translate>
-          </Button>
           <Link to="/carpool/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
             <FontAwesomeIcon icon="plus" />
             &nbsp;
@@ -135,35 +120,16 @@ export const Carpool = () => {
           name="search"
           value={searchTerm}
           onChange={handleSearch}
-          placeholder="Search by origin"
-          style={{ width: '25%', minWidth: '200px' }}
+          placeholder={`Search by ${searchBy}`}
+          style={{ width: '30%', minWidth: '200px' }}
           className="mb-2"
         />
-        <div className="d-flex justify-content-between" style={{ width: '50%', minWidth: '300px' }}>
-          <Input
-            type="select"
-            name="category"
-            value={categoryFilter}
-            onChange={handleCategoryFilter}
-            className="me-2"
-            style={{ width: '45%' }}
-          >
-            <option value="">All Categories</option>
-            {categories.map(category => (
-              <option key={category} value={category}>
-                {category}
-              </option>
-            ))}
+        <FormGroup className="mb-2" style={{ width: '30%', minWidth: '200px' }}>
+          <Input type="select" name="searchBy" value={searchBy} onChange={handleSearchByChange}>
+            <option value="origin">Origin</option>
+            <option value="destination">Destination</option>
           </Input>
-          <Input type="select" name="status" value={statusFilter} onChange={handleStatusFilter} style={{ width: '45%' }}>
-            <option value="">All Statuses</option>
-            {statuses.map(status => (
-              <option key={status} value={status}>
-                {status}
-              </option>
-            ))}
-          </Input>
-        </div>
+        </FormGroup>
       </div>
       <div className="d-flex flex-wrap justify-content-between">
         {filteredCarpools && filteredCarpools.length > 0
@@ -174,11 +140,6 @@ export const Carpool = () => {
                 style={{ width: '300px', borderRadius: '10px', boxShadow: '0 2px 5px rgba(0,0,0,0.1)' }}
               >
                 <div className="card-body">
-                  <h5 className="card-title">
-                    <Button tag={Link} to={`/carpool/${carpool.id}`} color="link" size="sm">
-                      {carpool.id}
-                    </Button>
-                  </h5>
                   <p className="card-text">
                     <strong>
                       <Translate contentKey="gofindApp.carpool.origin">Origin:</Translate>
@@ -197,29 +158,17 @@ export const Carpool = () => {
                     </strong>{' '}
                     {carpool.departureTime ? <TextFormat type="date" value={carpool.departureTime} format={APP_DATE_FORMAT} /> : null}
                   </p>
-                  <p className="card-text">
+                  {/* <p className="card-text">
                     <strong>
                       <Translate contentKey="gofindApp.carpool.seatsAvailable">Seats Available:</Translate>
                     </strong>{' '}
                     {carpool.seatsAvailable}
-                  </p>
-                  <p className="card-text">
-                    <strong>
-                      <Translate contentKey="gofindApp.carpool.description">Description:</Translate>
-                    </strong>{' '}
-                    {carpool.description}
-                  </p>
+                  </p> */}
                   <p className="card-text">
                     <strong>
                       <Translate contentKey="gofindApp.carpool.price">Price:</Translate>
                     </strong>{' '}
                     {carpool.price}
-                  </p>
-                  <p className="card-text">
-                    <strong>
-                      <Translate contentKey="gofindApp.carpool.driver">Driver:</Translate>
-                    </strong>{' '}
-                    {carpool.driver ? <Link to={`/utilisateur/${carpool.driver.id}`}>{carpool.driver.id}</Link> : ''}
                   </p>
                   <div className="btn-group flex-btn-group-container">
                     <Button tag={Link} to={`/carpool/${carpool.id}`} color="info" size="sm" data-cy="entityDetailsButton">
@@ -240,19 +189,18 @@ export const Carpool = () => {
                         <Translate contentKey="entity.action.edit">Edit</Translate>
                       </span>
                     </Button>
-                    <Button
+                    {/* <Button
                       onClick={() =>
                         (window.location.href = `/carpool/${carpool.id}/delete?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`)
                       }
-                      color="danger"
+                      color="info"
                       size="sm"
                       data-cy="entityDeleteButton"
                     >
-                      <FontAwesomeIcon icon="trash" />{' '}
                       <span className="d-none d-md-inline">
-                        <Translate contentKey="entity.action.delete">Delete</Translate>
+                        souscrire
                       </span>
-                    </Button>
+                    </Button> */}
                   </div>
                 </div>
               </div>
